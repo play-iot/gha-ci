@@ -1,2 +1,3 @@
 # gha-ci
-Shareable GitHub Actions/Workflows
+
+Shareable GitHub Actions/Workflows CI
