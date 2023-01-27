@@ -1,0 +1,31 @@
+name: build
+description: 'Build project'
+inputs:
+  nodeVersion:
+    description: 'Node version'
+    required: true
+    default: '16'
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.nodeVersion }}
+        cache: 'yarn'
+
+    - name: Install
+      shell: bash
+      run: yarn install
+
+    - name: Build
+      shell: bash
+      run: yarn build
+
+    - name: Typecheck
+      shell: bash
+      run: yarn typecheck
+
+    - name: Lint
+      shell: bash
+      run: yarn lint
