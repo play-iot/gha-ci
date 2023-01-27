@@ -1,0 +1,41 @@
+name: Project Context
+on:
+  workflow_call:
+    inputs:
+      nodeVersion:
+        description: 'Node version'
+        required: true
+        type: 'string'
+        default: '16'
+
+jobs:
+  build:
+    name: Yarn build & test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.nodeVersion }}
+          cache: 'yarn'
+
+      - name: Install
+        shell: bash
+        run: yarn install
+
+      - name: Build
+        shell: bash
+        run: yarn build
+
+      - name: Typecheck
+        shell: bash
+        run: yarn typecheck
+
+      - name: Lint
+        shell: bash
+        run: yarn lint
+
+      - name: Test
+        shell: bash
+        run: yarn test
